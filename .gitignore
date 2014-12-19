@@ -1,0 +1,17 @@
+*~
+*.egg-info
+*.mak.py
+*.pyc
+*.pyo
+*.swp
+TESTENV
+TGTest-*
+.coverage
+.project
+.pydevproject
+.settings
+.idea
+devtools/tests/data/
+dist/
+build/
+
