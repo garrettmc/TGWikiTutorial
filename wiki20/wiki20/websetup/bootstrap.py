@@ -43,6 +43,14 @@ def bootstrap(command, conf, vars):
         u1.password = 'editpass'
     
         model.DBSession.add(u1)
+
+
+        """Wiki Page Model"""
+        page = model.Page(pagename="FrontPage", data="initial data")
+        model.DBSession.add(page)
+
+        
+
         model.DBSession.flush()
         transaction.commit()
     except IntegrityError:
