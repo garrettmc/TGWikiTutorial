@@ -1,0 +1,40 @@
+WebOb>=0.9.7
+PasteDeploy
+speaklater
+decorator
+markupsafe
+six
+
+[mako]
+Mako >= 0.1.1
+
+[tests]
+nose
+sieve
+coverage
+Genshi >= 0.3.5
+Mako >= 0.1.1
+jinja2
+chameleon
+Formencode
+WebTest
+
+[jinja]
+jinja2
+
+[chameleon]
+chameleon
+
+[genshi]
+Genshi >= 0.3.5
+
+[test]
+nose
+sieve
+coverage
+Genshi >= 0.3.5
+Mako >= 0.1.1
+jinja2
+chameleon
+Formencode
+WebTest
