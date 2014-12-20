@@ -8,6 +8,7 @@ from tg import predicates
 from wiki20 import model
 from wiki20.controllers.secure import SecureController
 from wiki20.model import DBSession, metadata
+from wiki20.model.page import Page
 from tgext.admin.tgadminconfig import BootstrapTGAdminConfig as TGAdminConfig
 from tgext.admin.controller import AdminController
 
@@ -39,10 +40,10 @@ class RootController(BaseController):
     def _before(self, *args, **kw):
         tmpl_context.project_name = "wiki20"
 
-    @expose('wiki20.templates.index')
-    def index(self):
-        """Handle the front-page."""
-        return dict(page='index')
+    @expose('wiki20.templates.page')
+    def index(self, pagename="FrontPage"):
+        page = DBSession.query(Page).filter_by(pagename=pagename).one()
+        return dict(wikipage=page)
 
     @expose('wiki20.templates.about')
     def about(self):
