@@ -55,6 +55,14 @@ class RootController(BaseController):
 
 
 
+    @expose()
+    def save(self, pagename, data, submit):
+        page = DBSession.query(Page).filter_by(pagename=pagename).one()
+        page.data = data
+        redirect("/" + pagename)
+
+
+
     @expose('wiki20.templates.about')
     def about(self):
         """Handle the 'about' page."""
