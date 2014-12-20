@@ -15,7 +15,13 @@ from tgext.admin.controller import AdminController
 from wiki20.lib.base import BaseController
 from wiki20.controllers.error import ErrorController
 
+import re
+from docutils.core import publish_parts
+
+
 __all__ = ['RootController']
+
+wikiwords = re.compile(r"\b([A-Z]\w+[A-Z]+\w+)")
 
 
 class RootController(BaseController):
@@ -44,7 +50,10 @@ class RootController(BaseController):
     @expose('wiki20.templates.page')
     def _default(self, pagename="FrontPage"):
         page = DBSession.query(Page).filter_by(pagename=pagename).one()
-        return dict(wikipage=page)
+        content = publish_parts(page.data, writer_name="html")["html_body"]
+        root = url('/')
+        content = wikiwords.sub(r'<a href="%s\1">\1</a>' % root, content)
+        return dict(content=content, wikipage=page)
 
 
 
