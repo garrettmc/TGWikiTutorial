@@ -15,3 +15,5 @@ devtools/tests/data/
 dist/
 build/
 
+
+*.db
