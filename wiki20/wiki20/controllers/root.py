@@ -49,11 +49,25 @@ class RootController(BaseController):
 
     @expose('wiki20.templates.page')
     def _default(self, pagename="FrontPage"):
-        page = DBSession.query(Page).filter_by(pagename=pagename).one()
+        from sqlalchemy.exc import InvalidRequestError
+        
+        try:
+            page = DBSession.query(Page).filter_by(pagename=pagename).one()
+        except InvalidRequestError:
+            raise redirect("notfound", pagename=pagename)
+
         content = publish_parts(page.data, writer_name="html")["html_body"]
         root = url('/')
         content = wikiwords.sub(r'<a href="%s\1">\1</a>' % root, content)
         return dict(content=content, wikipage=page)
+
+
+
+    @expose("wiki20.templates.edit")
+    def notfound(self, pagename):
+        page = Page(pagename=pagename, data="")
+        DBSession.add(page)
+        return dict(wikipage=page)
 
 
 
